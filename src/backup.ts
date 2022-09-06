@@ -1,5 +1,5 @@
 import { exec } from "child_process";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { PutObjectCommand, S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
 import { createReadStream } from "fs";
 
 import { env } from "./env";
@@ -9,7 +9,16 @@ const uploadToS3 = async ({ name, path }: {name: string, path: string}) => {
 
   const bucket = env.AWS_S3_BUCKET;
 
-  const client = new S3Client({ region: env.AWS_S3_REGION });
+  const clientOptions: S3ClientConfig = {
+    region: env.AWS_S3_REGION,
+  }
+
+  if (env.AWS_S3_ENDPOINT) {
+    console.log(`Using custom endpoint: ${env.AWS_S3_ENDPOINT}`)
+    clientOptions['endpoint'] = env.AWS_S3_ENDPOINT;
+  }
+
+  const client = new S3Client(clientOptions);
 
   await client.send(
     new PutObjectCommand({
