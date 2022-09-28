@@ -54,7 +54,8 @@ const dumpToFile = async (path: string) => {
 export const backup = async () => {
   console.log("Initiating DB backup...")
 
-  const timestamp = new Date().toISOString()
+  let date = new Date().toISOString()
+  const timestamp = date.replace(/[:.]+/g, '-')
   const filename = `backup-${timestamp}.tar.gz`
   const filepath = `/tmp/${filename}`
 
