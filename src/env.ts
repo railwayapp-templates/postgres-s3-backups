@@ -1,4 +1,4 @@
-import { envsafe, str } from "envsafe";
+import { envsafe, str, bool } from "envsafe";
 
 export const env = envsafe({
   AWS_ACCESS_KEY_ID: str(),
@@ -18,4 +18,9 @@ export const env = envsafe({
     default: '',
     allowEmpty: true,
   }),
+  RUN_ON_STARTUP: bool({
+    desc: 'Run a backup on startup of this application',
+    default: false,
+    allowEmpty: true,
+  })
 })
