@@ -4,7 +4,7 @@ import { createReadStream, unlink } from "fs";
 
 import { env } from "./env";
 
-const uploadToS3 = async ({ name, path }: {name: string, path: string}) => {
+const uploadToS3 = async ({ name, path, basePath }: {name: string, path: string, basePath?: string}) => {
   console.log("Uploading backup to S3...");
 
   const bucket = env.AWS_S3_BUCKET;
@@ -20,10 +20,13 @@ const uploadToS3 = async ({ name, path }: {name: string, path: string}) => {
 
   const client = new S3Client(clientOptions);
 
+  const key = basePath ? `${basePath}/${name}` : name;
+  console.log(`Backup uploading to ${key}`);
+
   await client.send(
     new PutObjectCommand({
       Bucket: bucket,
-      Key: name,
+      Key: key,
       Body: createReadStream(path),
     })
   )
@@ -62,7 +65,7 @@ const deleteFile = async (path: string) => {
   })
 }
 
-export const backup = async () => {
+export const backup = async (basePath?: string) => {
   console.log("Initiating DB backup...")
 
   let date = new Date().toISOString()
@@ -71,7 +74,7 @@ export const backup = async () => {
   const filepath = `/tmp/${filename}`
 
   await dumpToFile(filepath)
-  await uploadToS3({name: filename, path: filepath})
+  await uploadToS3({name: filename, path: filepath, basePath})
   await deleteFile(filepath)
 
   console.log("DB backup complete...")
