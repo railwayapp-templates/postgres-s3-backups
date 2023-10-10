@@ -13,7 +13,10 @@ const uploadToGCS = async ({ name, path }: { name: string; path: string }) => {
     destination: name,
   };
 
-  const storage = new Storage();
+    const storage = new Storage({
+        projectId: env.GOOGLE_PROJECT_ID,
+        credentials: JSON.parse(env.SERVICE_ACCOUNT_JSON),
+    });
 
   await storage.bucket(bucketName).upload(path, uploadOptions);
 

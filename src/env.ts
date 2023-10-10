@@ -1,7 +1,10 @@
 import { envsafe, str, bool } from "envsafe";
 
 export const env = envsafe({
-  GOOGLE_APPLICATION_CREDENTIALS: str(),
+  GOOGLE_PROJECT_ID: str(),
+  SERVICE_ACCOUNT_JSON: str({
+    desc: "Stringified JSON of the service account .json key",
+  }),
   GCS_BUCKET: str(),
   BACKUP_DATABASE_URL: str({
     desc: 'The connection string of the database to backup.'
