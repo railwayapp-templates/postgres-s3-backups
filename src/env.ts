@@ -1,10 +1,8 @@
 import { envsafe, str, bool } from "envsafe";
 
 export const env = envsafe({
-  AWS_ACCESS_KEY_ID: str(),
-  AWS_SECRET_ACCESS_KEY: str(),
-  AWS_S3_BUCKET: str(),
-  AWS_S3_REGION: str(),
+  GOOGLE_APPLICATION_CREDENTIALS: str(),
+  GCS_BUCKET: str(),
   BACKUP_DATABASE_URL: str({
     desc: 'The connection string of the database to backup.'
   }),
@@ -13,10 +11,10 @@ export const env = envsafe({
     default: '0 5 * * *',
     allowEmpty: true
   }),
-  AWS_S3_ENDPOINT: str({
-    desc: 'The S3 custom endpoint you want to use.',
-    default: '',
+  BACKUP_PREFIX: str({
+    desc: 'Prefix for the backup file name.',
     allowEmpty: true,
+    default: ''
   }),
   RUN_ON_STARTUP: bool({
     desc: 'Run a backup on startup of this application',
