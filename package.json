@@ -17,7 +17,8 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.162.0",
     "cron": "^2.1.0",
-    "envsafe": "^2.0.3"
+    "envsafe": "^2.0.3",
+    "filesize": "^10.1.0"
   },
   "keywords": []
 }

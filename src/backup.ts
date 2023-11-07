@@ -1,6 +1,7 @@
 import { exec } from "child_process";
 import { PutObjectCommand, S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
-import { createReadStream, unlink } from "fs";
+import { createReadStream, unlink, statSync } from "fs";
+import { filesize } from "filesize";
 import path from "path";
 import os from "os";
 
@@ -47,6 +48,8 @@ const dumpToFile = async (path: string) => {
         reject({ stderr: stderr.trimEnd() });
         return;
       }
+
+      console.log("Backup size:", filesize(statSync(path).size));
 
       resolve(undefined);
     });
