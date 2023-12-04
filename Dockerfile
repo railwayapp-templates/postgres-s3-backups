@@ -1,8 +1,11 @@
 FROM alpine:3.18 AS build
 
-WORKDIR /root
-
 RUN apk add --update --no-cache nodejs npm
+
+ENV NPM_CONFIG_UPDATE_NOTIFIER=false
+ENV NPM_CONFIG_FUND=false
+
+WORKDIR /root
 
 COPY package*.json tsconfig.json ./
 COPY src ./src

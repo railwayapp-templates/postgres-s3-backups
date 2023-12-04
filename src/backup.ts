@@ -1,4 +1,4 @@
-import { exec } from "child_process";
+import { exec, execSync } from "child_process";
 import { S3Client, S3ClientConfig } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 import { createReadStream, unlink, statSync } from "fs";
@@ -46,24 +46,24 @@ const dumpToFile = async (filePath: string) => {
         return;
       }
 
+      // check if archive is valid and contains data
+      const isValidArchive = (execSync(`gzip -cd ${filePath} | head -c1`).length == 1) ? true : false;
+      if (isValidArchive == false) {
+        reject({ error: "Backup archive file is invalid or empty; check for errors above" });
+        return;
+      }
+
       // not all text in stderr will be a critical error, print the error / warning
       if (stderr != "") {
         console.log({ stderr: stderr.trimEnd() });
       }
 
-      const backupSize = statSync(filePath).size;
+      console.log("Backup archive file is valid");
+      console.log("Backup filesize:", filesize(statSync(filePath).size));
 
-      console.log("Backup filesize:", filesize(backupSize));
-
-      // if stderr did contain a critical error the resulting dumb file's size would be sub 100 bytes
-      if (backupSize < 100) {
-        reject({error: "Backup file does not have a valid size; check for errors above"});
-        return;
-      }
-
-      // if stderr contains text, but the dumb file is not empty, let the user know that it was potently just a warning message
-      if (stderr != "" && backupSize > 100) {
-        console.log(`Potential warnings detected; Please ensure the backup file "${path.basename(filePath)}" is valid`);
+      // if stderr contains text, let the user know that it was potently just a warning message
+      if (stderr != "") {
+        console.log(`Potential warnings detected; Please ensure the backup file "${path.basename(filePath)}" contains all needed data`);
       }
 
       resolve(undefined);
