@@ -53,17 +53,17 @@ const dumpToFile = async (filePath: string) => {
 
       const backupSize = statSync(filePath).size;
 
-      console.log("Backup size:", filesize(backupSize));
+      console.log("Backup filesize:", filesize(backupSize));
 
       // if stderr did contain a critical error the resulting dumb file's size would be sub 100 bytes
       if (backupSize < 100) {
-        reject({error: "Backup size does not meet size threshold; check for errors above"});
+        reject({error: "Backup file does not have a valid size; check for errors above"});
         return;
       }
 
       // if stderr contains text, but the dumb file is not empty, let the user know that it was potently just a warning message
       if (stderr != "" && backupSize > 100) {
-        console.log(`Warnings detected; Please ensure the backup file "${path.basename(filePath)}" is valid`);
+        console.log(`Potential warnings detected; Please ensure the backup file "${path.basename(filePath)}" is valid`);
       }
 
       resolve(undefined);
