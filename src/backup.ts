@@ -87,7 +87,7 @@ const deleteFile = async (path: string) => {
 export const backup = async () => {
   console.log("Initiating DB backup...");
 
-  let date = new Date().toISOString();
+  const date = new Date().toISOString();
   const timestamp = date.replace(/[:.]+/g, '-');
   const filename = `backup-${timestamp}.tar.gz`;
   const filepath = path.join(os.tmpdir(), filename);
