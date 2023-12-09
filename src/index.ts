@@ -16,7 +16,9 @@ const job = new CronJob(env.BACKUP_CRON_SCHEDULE, async () => {
   await tryBackup();
 });
 
-if(env.RUN_ON_STARTUP) {
+if (env.RUN_ON_STARTUP) {
+  console.log("Running on start backup...");
+
   tryBackup();
 }
 
