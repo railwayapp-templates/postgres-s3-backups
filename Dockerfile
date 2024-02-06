@@ -1,4 +1,4 @@
-FROM alpine:3.18 AS build
+FROM node:18-bullseye-slim as base
 
 RUN apk add --update --no-cache nodejs npm
 
@@ -14,7 +14,7 @@ RUN npm install && \
     npm run build && \
     npm prune --production
 
-FROM alpine:3.18
+FROM base as build
 
 WORKDIR /root
 
