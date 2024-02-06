@@ -22,6 +22,7 @@ COPY --from=build /root/node_modules ./node_modules
 COPY --from=build /root/dist ./dist
 
 ARG PG_VERSION='16'
+ARG BACKUP_DATABASE_URL
 
 RUN apk add --update --no-cache postgresql${PG_VERSION}-client --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main && \
     apk add --update --no-cache nodejs npm
