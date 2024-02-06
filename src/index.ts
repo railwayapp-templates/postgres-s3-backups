@@ -3,14 +3,17 @@ import { backup } from "./backup";
 import { env } from "./env";
 
 console.log("NodeJS Version: " + process.version);
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const tryBackup = async () => {
   try {
+    // sleep for 5 seconds to allow the database to start
+    await sleep(5000);
     await backup();
   } catch (error) {
     console.error("Error while running backup: ", error);
   }
-}
+};
 
 const job = new CronJob(env.BACKUP_CRON_SCHEDULE, async () => {
   await tryBackup();
