@@ -1,6 +1,7 @@
 import { CronJob } from "cron";
 import { backup } from "./backup";
 import { env } from "./env";
+import { exit } from "process";
 
 console.log("NodeJS Version: " + process.version);
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -12,6 +13,7 @@ const tryBackup = async () => {
     await backup();
   } catch (error) {
     console.error("Error while running backup: ", error);
+    exit(1);
   }
 };
 
