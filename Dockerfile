@@ -1,30 +1,27 @@
-FROM alpine:3.18 AS build
-
-RUN apk add --update --no-cache nodejs npm
+FROM node:20.11.1-alpine AS build
 
 ENV NPM_CONFIG_UPDATE_NOTIFIER=false
 ENV NPM_CONFIG_FUND=false
 
-WORKDIR /root
+WORKDIR /app
 
 COPY package*.json tsconfig.json ./
 COPY src ./src
 
-RUN npm install && \
+RUN npm ci && \
     npm run build && \
     npm prune --production
 
-FROM alpine:3.18
+FROM node:20.11.1-alpine
 
-WORKDIR /root
+WORKDIR /app
 
-COPY --from=build /root/node_modules ./node_modules
-COPY --from=build /root/dist ./dist
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
 
 ARG PG_VERSION='16'
 
-RUN apk add --update --no-cache postgresql${PG_VERSION}-client --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main && \
-    apk add --update --no-cache nodejs npm
+RUN apk add --update --no-cache postgresql${PG_VERSION}-client --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main
 
 CMD pg_isready --dbname=$BACKUP_DATABASE_URL && \
     pg_dump --version && \
