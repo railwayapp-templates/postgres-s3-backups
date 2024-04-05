@@ -9,6 +9,7 @@ const tryBackup = async () => {
     await backup();
   } catch (error) {
     console.error("Error while running backup: ", error);
+    process.exit(1);
   }
 }
 
