@@ -29,6 +29,7 @@ export const env = envsafe({
   }),
   BUCKET_SUBFOLDER: str({
     desc: 'A subfolder to place the backup files in',
+    default: '',
     allowEmpty: true
   }),
   SINGLE_SHOT_MODE: bool({
