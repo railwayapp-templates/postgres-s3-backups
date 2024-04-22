@@ -13,6 +13,9 @@ export const env = envsafe({
     default: '0 5 * * *',
     allowEmpty: true
   }),
+  BACKUP_OPTIONS: str({
+    devDefault: '',
+  }),
   AWS_S3_ENDPOINT: str({
     desc: 'The S3 custom endpoint you want to use.',
     default: '',
