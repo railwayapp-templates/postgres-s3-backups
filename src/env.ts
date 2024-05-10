@@ -26,5 +26,15 @@ export const env = envsafe({
   BACKUP_FILE_PREFIX: str({
     desc: 'Prefix to the file name',
     default: 'backup',
+  }),
+  BUCKET_SUBFOLDER: str({
+    desc: 'A subfolder to place the backup files in',
+    default: '',
+    allowEmpty: true
+  }),
+  SINGLE_SHOT_MODE: bool({
+    desc: 'Run a single backup on start and exit when completed',
+    default: false,
+    allowEmpty: true,
   })
 })
