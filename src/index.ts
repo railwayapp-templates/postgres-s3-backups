@@ -1,5 +1,6 @@
 import { CronJob } from "cron";
 import { backup } from "./backup.js";
+import { notifyError } from "./notify_error.js";
 import { env } from "./env.js";
 
 console.log("NodeJS Version: " + process.version);
@@ -9,6 +10,7 @@ const tryBackup = async () => {
     await backup();
   } catch (error) {
     console.error("Error while running backup: ", error);
+    await notifyError(`Error while running backup: ${error}`);
     process.exit(1);
   }
 }

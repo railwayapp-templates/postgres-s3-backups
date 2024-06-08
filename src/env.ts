@@ -36,5 +36,10 @@ export const env = envsafe({
     desc: 'Run a single backup on start and exit when completed',
     default: false,
     allowEmpty: true,
-  })
+  }),
+  ERROR_NOTIFY_URL: str({
+    desc: 'A URL to send a GET request to when an error occurs',
+    default: '',
+    allowEmpty: true,
+  }),
 })
