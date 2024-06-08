@@ -14,6 +14,7 @@ export const notifyError = async (message: string) => {
     url.searchParams.append('message', message);
 
     try {
+      console.log("Sending error notification...");
       await axios.get(url.toString());
     } catch (error) {
       console.error(`Failed to send error notification: ${error}`);
