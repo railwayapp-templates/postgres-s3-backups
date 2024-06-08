@@ -37,7 +37,7 @@ export const env = envsafe({
     default: false,
     allowEmpty: true,
   }),
-  ERROR_NOTIFY_URL: str({
+  ON_ERROR_NOTIFY_URL: str({
     desc: 'A URL to send a GET request to when an error occurs',
     default: '',
     allowEmpty: true,
