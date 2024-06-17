@@ -29,3 +29,5 @@ A simple NodeJS application to backup your PostgreSQL database to S3 via a cron.
 - `SINGLE_SHOT_MODE` - Run a single backup on start and exit when completed. Useful with the platform's native CRON schedular.
 
 - `SUPPORT_OBJECT_LOCK` - Enables support for buckets with object lock by providing an MD5 hash with the backup file.
+
+- `ON_ERROR_NOTIFY_URL` - A URL to send a GET request to in case of an error. The request will contain the error message as a query parameter.
