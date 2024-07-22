@@ -20,6 +20,8 @@ A simple NodeJS application to backup your PostgreSQL database to S3 via a cron.
 
 - `AWS_S3_ENDPOINT` - The S3 custom endpoint you want to use. Applicable for 3-rd party S3 services such as Cloudflare R2 or Backblaze R2.
 
+- `AWS_S3_FORCE_PATH_STYLE` - Use path style for the endpoint instead of the default subdomain style, useful for MinIO. Default `false`
+
 - `RUN_ON_STARTUP` - Run a backup on startup of this application then proceed with making backups on the set schedule.
 
 - `BACKUP_FILE_PREFIX` - Add a prefix to the file name.

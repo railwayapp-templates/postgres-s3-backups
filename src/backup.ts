@@ -15,7 +15,8 @@ const uploadToS3 = async ({ name, path }: { name: string, path: string }) => {
   const bucket = env.AWS_S3_BUCKET;
 
   const clientOptions: S3ClientConfig = {
-    region: env.AWS_S3_REGION
+    region: env.AWS_S3_REGION,
+    forcePathStyle: env.AWS_S3_FORCE_PATH_STYLE
   }
 
   if (env.AWS_S3_ENDPOINT) {

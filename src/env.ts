@@ -18,6 +18,11 @@ export const env = envsafe({
     default: '',
     allowEmpty: true,
   }),
+  AWS_S3_FORCE_PATH_STYLE: bool({
+    desc: 'Use path style for the endpoint instead of the default subdomain style, useful for MinIO',
+    default: false,
+    allowEmpty: true
+  }),
   RUN_ON_STARTUP: bool({
     desc: 'Run a backup on startup of this application',
     default: false,
