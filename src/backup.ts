@@ -25,6 +25,10 @@ const uploadToS3 = async ({ name, path }: { name: string, path: string }) => {
     clientOptions.endpoint = env.AWS_S3_ENDPOINT;
   }
 
+  if (env.BUCKET_SUBFOLDER) {
+    name = env.BUCKET_SUBFOLDER + "/" + name;
+  }
+
   let params: PutObjectCommandInput = {
     Bucket: bucket,
     Key: name,
@@ -39,10 +43,6 @@ const uploadToS3 = async ({ name, path }: { name: string, path: string }) => {
     console.log("Done hashing file");
 
     params.ContentMD5 = Buffer.from(md5Hash, 'hex').toString('base64');
-  }
-
-  if (env.BUCKET_SUBFOLDER) {
-    name = env.BUCKET_SUBFOLDER + "/" + name;
   }
 
   const client = new S3Client(clientOptions);
