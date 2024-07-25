@@ -13,9 +13,6 @@ export const env = envsafe({
     default: '0 5 * * *',
     allowEmpty: true
   }),
-  BACKUP_OPTIONS: str({
-    devDefault: '',
-  }),
   AWS_S3_ENDPOINT: str({
     desc: 'The S3 custom endpoint you want to use.',
     default: '',
@@ -49,5 +46,9 @@ export const env = envsafe({
   SUPPORT_OBJECT_LOCK: bool({
     desc: 'Enables support for buckets with object lock by providing an MD5 hash with the backup file',
     default: false
-  })
+  }),
+  BACKUP_OPTIONS: str({
+    desc: 'Any valid pg_dump option.',
+    devDefault: '',
+  }),
 })
