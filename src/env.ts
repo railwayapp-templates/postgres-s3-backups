@@ -49,7 +49,7 @@ export const env = envsafe({
   }),
   BACKUP_OPTIONS: str({
     desc: 'Any valid pg_dump option.',
-    devDefault: '',
+    default: '',
     allowEmpty: true,
   }),
 })
