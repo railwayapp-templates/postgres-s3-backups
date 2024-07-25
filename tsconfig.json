@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "ES2020",
+    "module": "NodeNext",
     "outDir": "./dist",
     "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
