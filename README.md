@@ -33,3 +33,5 @@ A simple NodeJS application to backup your PostgreSQL database to S3 via a cron.
 - `SUPPORT_OBJECT_LOCK` - Enables support for buckets with object lock by providing an MD5 hash with the backup file.
 
 - `BACKUP_OPTIONS` - Add any valid pg_dump option, supported pg_dump options can be found [here](https://www.postgresql.org/docs/current/app-pgdump.html). Example: `--exclude-table=pattern`
+
+- `RETENTION_DAYS` - Number of days to retain backups. Older backups will be automatically deleted. If not set or set to 0, all backups will be retained.
