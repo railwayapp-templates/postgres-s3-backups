@@ -96,11 +96,14 @@ const deleteFile = async (path: string) => {
   console.log("Deleting file...");
   await new Promise((resolve, reject) => {
     unlink(path, (err) => {
-      reject({ error: err });
-      return;
+      if (err) {
+        reject({ error: err });
+        return;
+      }
+      resolve(undefined);
     });
-    resolve(undefined);
   });
+  console.log("File deleted successfully");
 }
 
 export const backup = async () => {
